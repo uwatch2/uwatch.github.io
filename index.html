@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+
+Copyright (c) 2023 (PUT COPYRIGHT HOLDER HERE WHOEVER THAT IS).
+You may alter this code, but you may not re-host it, profit from it, or present it as your own.
+
+        -->
+        <title>uWatch</title>
+        <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="brython.js"></script>
+        <script type="text/javascript" src="brython_stdlib.js"></script>
+    </head>
+    <body onload="brython();">
+        <div id="top">
+            <div id="logo-div">
+                &nbsp;<span id="logo-text" class="large">&hairsp;&hairsp;uWatch</span>&nbsp;
+                <img id="logo-img" src="logo.png" alt="none" width="96" height="48">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div id="searchbar-wrapper">
+                <div id="searchbar-div">
+                    <img height="20" width="20" src="search_icon.png" id="search-icon">
+                    <input type="search" id="searchbar" size="80">
+                </div>
+            </div>
+        </div>
+        <div id="middle">
+            <div id="trending"></div>
+            <div id="create">
+                <textarea id="c-title" placeholder="Post title" rows=1 cols=40></textarea>
+                <textarea id="c-text" placeholder="Post content" rows=10 cols=81></textarea>
+                <button id="c-add">Add Post</button>
+            </div>
+            <div id="view" class="view">
+                <table id="v-header" class="v-header">
+                    <tr>
+                        <td id="v-title" class="v-title">404 Not Found</td>
+                        <td id="v-name" class="v-name">Error</td>
+                    </tr>
+                </table>
+                <div id="v-text" class="v-text">The requested post could not be found.</div>
+            </div>
+            <div id="searchr">
+            </div>
+        </div>
+        <div id="bottom" class="large">
+            <table style="width: 100%;height: 100%;text-align: center;margin-bottom: 5px;margin-top: 5px;">
+                <tr>
+                    <td>
+                        <div id="tab-trending">Trending</div>
+                    </td>
+                    <td>
+                        <div id="tab-create">Create</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/python" src="main.py"></script>
+    </body>
+</html>
