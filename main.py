@@ -22,7 +22,7 @@ sys.stderr = stderr_writer()
 ########## CONSTANTS ##########
 
 
-saddr = '127.0.0.1'
+saddr = 'uwatchr.com'
 
 
 ########## FUNCTIONS ##########
@@ -71,7 +71,7 @@ def send_post(title, text):
 def set_trending():
     def read(req):
         if req.status != 200:
-            alert(f'Error while fetching trending')
+            alert(f'Error while fetching trending ({req.status} {req.statusText})')
             return
         out = req.read()
         if out == None:
