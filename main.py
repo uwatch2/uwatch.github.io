@@ -59,12 +59,10 @@ def send_post(title, text):
             alert('Profanity detected, post not added.')
             goback = False
         else:
-            print(req.responseText)
-            t = json.loads(req.responseText)
+            t = json.loads(req.read())
             storage['posts-left'] = str(t['p'])
             storage['imgs-left'] = str(t['g'])
             storage['megs-left'] = str(t['m'])
-            print('test')
             alert('Post added. Link: https://uwatch2.github.io/?m=v&p=' + str(t['i']))
     ajax.get(f'https://{saddr}/addpost', data=json.dumps({'title':title, 'text':text}), oncomplete=read)
 
