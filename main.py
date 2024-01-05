@@ -66,7 +66,7 @@ def send_post(title, text):
             storage['megs-left'] = str(t['m'])
             print('test')
             alert('Post added. Link: https://uwatch2.github.io/?m=v&p=' + str(t['i']))
-    ajax.post(f'https://{saddr}/addpost', data=json.dumps({'title':title, 'text':text}), oncomplete=read)
+    ajax.get(f'https://{saddr}/addpost', data=json.dumps({'title':title, 'text':text}), oncomplete=read)
 
 def set_trending():
     def read(req):
