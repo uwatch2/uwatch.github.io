@@ -63,7 +63,7 @@ def send_post(title, text):
             storage['posts-left'] = str(t['p'])
             storage['imgs-left'] = str(t['g'])
             storage['megs-left'] = str(t['m'])
-            alert('Post added. Link: https://uwatch2.github.io/?m=v&p=' + str(t['i']))
+            alert('Post added. Link: https://uwatchr.github.io/?m=v&p=' + str(t['i']))
     ajax.get(f'https://{saddr}/addpost', data=json.dumps({'title':title, 'text':text}), oncomplete=read)
 
 def set_trending():
@@ -119,7 +119,7 @@ if document.query.getvalue('m', '') == 'v':
     document['view'].style.display = 'block'
     document['searchr'].style.display = 'none'
     i = int(document.query.getvalue('p', '-1'))
-    set_post(i)
+    set_post(i - 1)
 else:
     document['trending'].style.display = 'block'
     document['create'].style.display = 'none'
