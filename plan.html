@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Planner</title>
+        <style>
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+.sn {
+    user-select: none;
+}
+
+.controlbtn {
+    background-color: blue;
+    color: #000000;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 24px;
+}
+
+div {
+    text-align: center;
+    border: 1px dashed gray;
+    padding: 5px;
+    font-size: 24px;
+    margin: 0 auto;
+}
+
+div.main {
+    width: 10ch;
+}
+
+        </style>
+    </head>
+    <body>
+        <table width="100%">
+            <tr width="100%">
+                <td class="controlbtn sn" id="back">&lt;- Back</td>
+                <td colspan="4"><div contenteditable="true" style="width: 40ch;" id="name"></div></td>
+                <td class="controlbtn sn" id="next">Next -&gt;</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Monday</td>
+                <td>Tuesday</td>
+                <td>Wednesday</td>
+                <td>Thursday</td>
+                <td>Friday</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="sn">1st Period</td>
+                <td><div contenteditable="true" class="main" id="m1"></div></td>
+                <td><div contenteditable="true" class="main" id="t1"></div></td>
+                <td><div contenteditable="true" class="main" id="w1"></div></td>
+                <td><div contenteditable="true" class="main" id="h1"></div></td>
+                <td><div contenteditable="true" class="main" id="f1"></div></td>
+            </tr>
+            <tr>
+                <td class="sn">2nd Period</td>
+                <td><div contenteditable="true" class="main" id="m2"></div></td>
+                <td><div contenteditable="true" class="main" id="t2"></div></td>
+                <td><div contenteditable="true" class="main" id="w2"></div></td>
+                <td><div contenteditable="true" class="main" id="h2"></div></td>
+                <td><div contenteditable="true" class="main" id="f2"></div></td>
+            </tr>
+            <tr>
+                <td class="sn">3rd Period</td>
+                <td><div contenteditable="true" class="main" id="m3"></div></td>
+                <td><div contenteditable="true" class="main" id="t3"></div></td>
+                <td><div contenteditable="true" class="main" id="w3"></div></td>
+                <td><div contenteditable="true" class="main" id="h3"></div></td>
+                <td><div contenteditable="true" class="main" id="f3"></div></td>
+            </tr>
+            <tr>
+                <td class="sn">4th Period</td>
+                <td><div contenteditable="true" class="main" id="m4"></div></td>
+                <td><div contenteditable="true" class="main" id="t4"></div></td>
+                <td><div contenteditable="true" class="main" id="w4"></div></td>
+                <td><div contenteditable="true" class="main" id="h4"></div></td>
+                <td><div contenteditable="true" class="main" id="f4"></div></td>
+            </tr>
+            <tr>
+                <td class="sn">5th Period</td>
+                <td><div contenteditable="true" class="main" id="m5"></div></td>
+                <td><div contenteditable="true" class="main" id="t5"></div></td>
+                <td><div contenteditable="true" class="main" id="w5"></div></td>
+                <td><div contenteditable="true" class="main" id="h5"></div></td>
+                <td><div contenteditable="true" class="main" id="f5"></div></td>
+            </tr>
+        </table>
+        <p>Page: <input type="number" min="-999999" max="999999" step="1" value="0" style="width: 8ch;" id="page">&nbsp;&nbsp;&nbsp;&nbsp;<button id="update">Update</button>
+        <script>
+
+if (localStorage.getItem("plan.init") == null) {
+    localStorage.setItem("plan.page", "0");
+    localStorage.setItem(`plan.0.visited`, "true");
+    localStorage.setItem("plan.init", "true");
+};
+
+let page = eval(localStorage.getItem("plan.page"));
+const pageElt = document.getElementById("page");
+let infoElts = [document.getElementById("name")];
+for (const p of [1, 2, 3, 4, 5]) {
+    for (const d of ["m", "t", "w", "h", "f"]) {
+        infoElts.push(document.getElementById(d + p));
+    };
+};
+
+function save() {
+    for (const elt of infoElts) {
+        localStorage.setItem(`plan.${page}.${elt.id}`, elt.innerHTML);
+    };
+};
+
+function update() {
+    localStorage.setItem("plan.page", page.toString());
+    document.getElementById("page").value = page.toString();
+};
+
+function load() {
+    if (localStorage.getItem(`plan.${page}.visited`) == null) {
+        for (const elt of infoElts) {
+            elt.innerHTML = "";
+        };
+        localStorage.setItem(`plan.${page}.visited`, true);
+    } else {
+        for (const elt of infoElts) {
+            elt.innerHTML = localStorage.getItem(`plan.${page}.${elt.id}`);
+        };
+    };
+};
+
+function back(_event) {
+    save();
+    page -= 1;
+    update();
+    load();
+};
+
+function next(_event) {
+    save();
+    page += 1;
+    update();
+    load();
+};
+
+function updateFrom(_event) {
+    save()
+    page = eval(document.getElementById("page").value);
+    update();
+    load();
+}
+
+document.getElementById("back").addEventListener("click", back);
+document.getElementById("next").addEventListener("click", next);
+document.getElementById("update").addEventListener('click', updateFrom)
+
+load();
+update();
+
+setInterval(save, 1000);
+
+        </script>
+    </body>
+</html>
