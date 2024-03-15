@@ -2,21 +2,21 @@
 
 ########## IMPORTS ##########
 
-from browser import document, alert as _alert, ajax, window
-from browser.local_storage import storage
+from browser import document, alert as _alert, ajax, window #type:ignore #pylint:disable=import-error
+from browser.local_storage import storage #type:ignore #pylint:disable=import-error
 from html import escape
 import json
 
 def alert(*args, sep=' ', end=''):
     _alert(sep.join([str(x) for x in args]) + end)
 
-import sys
+# import sys
 
-class stderr_writer:
-    def write(self, x):
-        document.write(escape(x).replace('\n', '<br>').replace(' ', '&nbsp;'))
+# class stderr_writer:
+#     def write(self, x):
+#         document.write(escape(x).replace('\n', '<br>').replace(' ', '&nbsp;'))
 
-sys.stderr = stderr_writer()
+# sys.stderr = stderr_writer()
 
 
 ########## CONSTANTS ##########
